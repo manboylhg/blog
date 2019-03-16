@@ -2,7 +2,7 @@
 from django.db import models
 from django.utils.timezone import now
 
-
+# 标签Models
 class Tag(models.Model):
     name = models.CharField(verbose_name='标签名称', max_length=64)
     created_time = models.DateTimeField(verbose_name='创建时间', default=now)
@@ -14,11 +14,11 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = '标签名称'  # 指定后台显示模型名称
+        verbose_name = '标签'  # 指定后台显示模型名称
         verbose_name_plural = '标签列表'  # 指定后台显示模型复数名称
         db_table = "tag"  # 数据库表名
 
-
+# 分类Models
 class Category(models.Model):
     name = models.CharField(verbose_name='类别名称', max_length=64)
     created_time = models.DateTimeField(verbose_name='创建时间', default=now)
@@ -26,7 +26,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = "类别名称"
+        verbose_name = "类别"
         verbose_name_plural = '分类列表'
         db_table = "category"  # 数据库表名
 
@@ -34,7 +34,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
+# 文章Models
 class Article(models.Model):
     STATUS_CHOICES = (
         ('d', '草稿'),
@@ -47,7 +47,7 @@ class Article(models.Model):
     created_time = models.DateTimeField(verbose_name='创建时间', default=now)
     pub_time = models.DateTimeField(verbose_name='发布时间', blank=True, null=True)
     last_mod_time = models.DateTimeField(verbose_name='修改时间', default=now)
-    category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.CASCADE, blank=False, null=False)
+    category = models.ForeignKey(Category, verbose_name='文章分类', on_delete=models.CASCADE, blank=False, null=False)
     tags = models.ManyToManyField(Tag, verbose_name='标签集合', blank=True)
 
     # 使对象在后台显示更友好
@@ -74,3 +74,7 @@ class Article(models.Model):
         verbose_name_plural = '文章列表'  # 指定后台显示模型复数名称
         db_table = 'article'  # 数据库表名
         get_latest_by = 'created_time'
+
+
+
+

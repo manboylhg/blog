@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.myblog',
+    'comment',
+    'userprofile',
 
 ]
 
@@ -75,22 +77,22 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 #
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'blog_database',    # 使用的数据库名（上面创建的表单所属的数据库）
-#         'USER':'root',
-#         'PASSWORD':'658258',
-#         'HOST':'localhost',
-#         'PORT':'3306',             # 连接数据库端口号
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog_database',    # 使用的数据库名（上面创建的表单所属的数据库）
+        'USER':'root',
+        'PASSWORD':'658258',
+        'HOST':'localhost',
+        'PORT':'3306',             # 连接数据库端口号
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

@@ -7,7 +7,7 @@
 
                     <p class="post-meta">
                         发布时间: {{ post.pub_time|date:'Y/m/d H:m:s'}}&nbsp&nbsp
-                        分类: <a class="post-category post-category-pure" href="#">{{ post.category }}</a>&nbsp&nbsp
+                        分类: <a class="post-category post-category-pure" href="{% url 'category_art' type=post.category%}">{{ post.category }}</a>&nbsp&nbsp
                         标签:
                           {% for tag in tags %}
                             <a class="post-category post-category-pure" href="#">{{ tag }}</a>
@@ -18,9 +18,47 @@
 
                 <div class="post-description">
                     <p>
-                        {{ post.content }}
+                        {{ post.content|linebreaksbr }}
                     </p>
                 </div>
+
+            <form action="{% url 'comment:post_comment' article_id=post.id %}" method="post" class="comment-form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="{{ form.name.id_for_label }}">用户名称：</label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
+                <div class="col-md-4">
+                    <label for="{{ form.email.id_for_label }}">邮箱地址：</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+                <div class="col-md-12">
+                    <label for="{{ form.comment.id_for_label }}">评论内容：</label>
+                    {{ form.content }}
+                    {{ form.content.errors }}
+                    <button type="submit" class="comment-btn">发表</button>
+                </div>
+            </div>    <!-- row -->
+        </form>
+            <div class="comment-list-panel">
+            <h3>评论列表，共 <span>{{comments.count}}</span> 条评论</h3>
+            <ul class="comment-list list-unstyled">
+                {% for comment in comments %}
+                <li class="comment-item">
+                    <span class="nickname">{{ comment.name}}</span>
+                    <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">{{ comment.created_time }}</time>
+                    <div class="text">
+                        {{ comment.content }}
+                    </div>
+                </li>
+                {% empty %}
+                暂无评论
+                {% endfor %}
+            </ul>
+        </div>
         </section>
 </div><!-- /.blog-post -->
 {% endblock %}
