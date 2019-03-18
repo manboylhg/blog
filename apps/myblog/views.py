@@ -27,7 +27,6 @@ def detail(request, id):  # 查看文章详情
         tags = post.tags.all()  # 获取文章对应所有标签
         form = CommentForm()
         comments = post.comment_set.all()
-
     except Article.DoesNotExist:
         raise Http404
     return render(request, 'post.html', {'post': post, 'tags': tags, 'form': form, 'comments': comments})
